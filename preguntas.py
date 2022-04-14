@@ -12,7 +12,7 @@ import pandas as pd
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
 tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
-
+pr_8 = tbl0.copy()
 
 def pregunta_01():
     """
@@ -140,7 +140,7 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    pr_8 = tbl0.copy()
+    global pr_8
     pr_8 = pr_8.assign(suma = pr_8["_c0"] + pr_8["_c2"])
 
 
