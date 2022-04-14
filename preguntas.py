@@ -230,14 +230,13 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    tbl2["_c5b"] = tbl2["_c5b"].astype("str")
-    tbl2 = pd.DataFrame(tbl2,columns=["_c0",'_c5a','_c5b']) 
-    tbl2["_c5"] = tbl2["_c5a"] + ":" + tbl2["_c5b"]
-    tbl2 = tbl2.groupby("_c0")["_c5"].agg(",".join)
-    tbl2 =tbl2.rename_axis('_c0').reset_index()
-    tbl2["_c5"] = tbl2["_c5"].apply(lambda x: ",".join((sorted(x.split(",")))))
+    tbl12 = pd.DataFrame(tbl2,columns=["_c0",'_c5a','_c5b'])
+    tbl12["_c5"] = tbl12["_c5a"] + ":" + (tbl12["_c5b"].astype("str"))
+    tbl12 = tbl12.groupby("_c0")["_c5"].agg(",".join)
+    tbl12 =tbl12.rename_axis('_c0').reset_index()
+    tbl12["_c5"] = tbl12["_c5"].apply(lambda x: ",".join((sorted(x.split(",")))))
 
-    return print(tbl2)
+    return print(tbl12)
 
 
 def pregunta_13():
