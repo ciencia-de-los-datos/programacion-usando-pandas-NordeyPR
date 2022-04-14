@@ -142,9 +142,9 @@ def pregunta_08():
     """
     global pr_8
     pr_8 = pr_8.assign(suma = pr_8["_c0"] + pr_8["_c2"])
+    pr_8_r = pr_8
 
-
-    return print(pr_8)
+    return print(pr_8_r)
 
 
 def pregunta_09():
@@ -165,8 +165,8 @@ def pregunta_09():
     year = pd.DataFrame({"fechas": tbl0["_c3"]})
     year.fechas = year.fechas.str.split("-", n=1).str[0]
     tbl0["year"] = year
-
-    return print(tbl0)
+    pr_9 = tbl0
+    return print(pr_9)
 
 
 def pregunta_10():
