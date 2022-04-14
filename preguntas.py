@@ -142,7 +142,7 @@ def pregunta_08():
     """
     pr_8 = tbl0.assign(suma = tbl0["_c0"] + tbl0["_c2"])
 
-    return pr_8.info
+    return print(pr_8)
 
 
 def pregunta_09():
