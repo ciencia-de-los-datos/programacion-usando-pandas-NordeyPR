@@ -162,10 +162,11 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    year = pd.DataFrame({"fechas": tbl0["_c3"]})
-    year.fechas = year.fechas.str.split("-", n=1).str[0]
-    tbl0["year"] = year
     pr_9 = tbl0
+    year = pd.DataFrame({"fechas": pr_9["_c3"]})
+    year.fechas = year.fechas.str.split("-", n=1).str[0]
+    pr_9["year"] = year
+    
     return print(pr_9)
 
 
