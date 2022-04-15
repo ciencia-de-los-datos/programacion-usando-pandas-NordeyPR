@@ -145,11 +145,10 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    pr_8 = tbl0.copy()
-    pr_8 = pr_8.assign(suma = pr_8["_c0"] + pr_8["_c2"])
-    pr_8_r = pr_8
+    suma= tbl0["_c0"] + tbl0["_c2"]
+    tbl0['suma'] = suma
 
-    return print(pr_8_r)
+    return tbl0
 
 
 def pregunta_09():
@@ -167,12 +166,12 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    pr_9 = tbl0.copy()
-    year = pd.DataFrame({"fechas": pr_9["_c3"]})
+     
+    year = pd.DataFrame({"fechas": tbl0['_c3']})
     year.fechas = year.fechas.str.split("-", n=1).str[0]
-    pr_9["year"] = year
+    tbl0['year'] = year
     
-    return print(pr_9)
+    return tbl0
 
 
 def pregunta_10():
@@ -215,11 +214,11 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    pr_11 = tbl1.copy()
-    pr_11 = pr_11.groupby("_c0")["_c4"].agg(",".join)
-    pr_11 = pr_11.reset_index()
+    tabla1=tbl1.groupby("_c0")["_c4"].agg(','.join)
+    tabla1=tabla1.reset_index()
+    tabla1['_c4']=tabla1['_c4'].apply(lambda x: ','.join((sorted(x.split(',')))))
 
-    return print(pr_11)
+    return tabla1
 
 
 def pregunta_12():
@@ -237,14 +236,14 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    pr_12 = tbl2.copy()
-    pr_12 = pd.DataFrame(pr_12,columns=["_c0",'_c5a','_c5b'])
-    pr_12["_c5"] = pr_12["_c5a"] + ":" + (pr_12["_c5b"].astype("str"))
-    pr_12 = pr_12.groupby("_c0")["_c5"].agg(",".join)
-    pr_12 = pr_12.rename_axis('_c0').reset_index()
-    pr_12["_c5"] = pr_12["_c5"].apply(lambda x: ",".join((sorted(x.split(",")))))
+    tbl2["_c5b"]=tbl2["_c5b"].astype("str")
+    df = pd.DataFrame(tbl2,columns=['_c0','_c5a','_c5b']) 
+    df['_c5'] = df['_c5a'] + ":" + df['_c5b']
+    tabla12=df.groupby("_c0")["_c5"].agg(','.join)
+    tabla12=tabla12.reset_index()
+    tabla12['_c5']=tabla12['_c5'].apply(lambda x: ','.join((sorted(x.split(',')))))
 
-    return print(pr_12)
+    return tabla12
 
 
 def pregunta_13():
@@ -261,4 +260,8 @@ def pregunta_13():
     E    275
     Name: _c5b, dtype: int64
     """
-    return
+    suma = tbl2.groupby("_c0")["_c5b"].sum()
+    tbl0["_c5b"]=suma
+    total = tbl0.groupby("_c1")["_c5b"].sum()
+    
+    return total
