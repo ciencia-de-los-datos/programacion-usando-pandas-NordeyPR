@@ -189,15 +189,14 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    pr_10 = tbl0.copy()
-    pr_10["_c2"] = pr_10["_c2"].astype("str")
-    pr_10 = pr_10.groupby("_c1")["_c2"].agg(":".join)
-    pr_10 = pr_10.reset_index()
-    pr_10["_c2"] = pr_10["_c2"].apply(lambda x: ":".join((sorted(x.split(":")))))
-    pr_10.set_index("_c1" , inplace = True)
+    tbl0['_c2']=tbl0['_c2'].astype('str')
+    tabla10=tbl0.groupby("_c1")["_c2"].agg(':'.join)
+    tabla10 = tabla10.reset_index()
+    tabla10['_c2']=tabla10['_c2'].apply(lambda x: ':'.join((sorted(x.split(':')))))
+    tabla10.set_index('_c1', inplace = True)
     
 
-    return print(pr_10)
+    return tabla10
 
 
 def pregunta_11():
