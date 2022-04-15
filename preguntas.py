@@ -12,7 +12,7 @@ import pandas as pd
 tbl0 = pd.read_csv("tbl0.tsv", sep="\t")
 tbl1 = pd.read_csv("tbl1.tsv", sep="\t")
 tbl2 = pd.read_csv("tbl2.tsv", sep="\t")
-pr_8 = tbl0.copy()
+
 
 def pregunta_01():
     """
@@ -52,7 +52,8 @@ def pregunta_03():
     Name: _c1, dtype: int64
 
     """
-    pr_3 = tbl0.groupby("_c1")["_c1"].count()
+    pr_3 = tbl0.copy()
+    pr_3 = pr_3.groupby("_c1")["_c1"].count()
 
     return pr_3
 
@@ -69,7 +70,8 @@ def pregunta_04():
     E    4.785714
     Name: _c2, dtype: float64
     """
-    pr_4 = tbl0.groupby("_c1")["_c2"].mean()
+    pr_4 = tbl0.copy()
+    pr_4 = pr_4.groupby("_c1")["_c2"].mean()
 
     return pr_4
 
@@ -88,7 +90,8 @@ def pregunta_05():
     E    9
     Name: _c2, dtype: int64
     """
-    pr_5 = tbl0.groupby("_c1")["_c2"].max()
+    pr_5 = tbl0.copy()
+    pr_5 = pr_5.groupby("_c1")["_c2"].max()
 
     return pr_5
 
@@ -102,7 +105,8 @@ def pregunta_06():
     ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
     """
-    pr_6 = sorted((tbl1["_c4"].str.upper()).unique())
+    pr_6 = tbl1.copy()
+    pr_6 = sorted((pr_6["_c4"].str.upper()).unique())
 
     return pr_6 
 
@@ -120,7 +124,8 @@ def pregunta_07():
     E    67
     Name: _c2, dtype: int64
     """
-    pr_7 = tbl0.groupby("_c1")["_c2"].sum()
+    pr_7 = tbl0.copy()
+    pr_7 = pr_7.groupby("_c1")["_c2"].sum()
 
     return pr_7
 
@@ -140,7 +145,7 @@ def pregunta_08():
     39   39   E    5  1998-01-26    44
 
     """
-    global pr_8
+    pr_8 = tbl0.copy()
     pr_8 = pr_8.assign(suma = pr_8["_c0"] + pr_8["_c2"])
     pr_8_r = pr_8
 
@@ -162,7 +167,7 @@ def pregunta_09():
     39   39   E    5  1998-01-26  1998
 
     """
-    pr_9 = tbl0
+    pr_9 = tbl0.copy()
     year = pd.DataFrame({"fechas": pr_9["_c3"]})
     year.fechas = year.fechas.str.split("-", n=1).str[0]
     pr_9["year"] = year
@@ -184,13 +189,15 @@ def pregunta_10():
     3   D                  1:2:3:5:5:7
     4   E  1:1:2:3:3:4:5:5:5:6:7:8:8:9
     """
-    tbl0["_c2"] = tbl0["_c2"].astype("str")
-    pr_10 = tbl0.groupby("_c1")["_c2"].agg(":".join)
+    pr_10 = tbl0.copy()
+    pr_10["_c2"] = pr_10["_c2"].astype("str")
+    pr_10 = pr_10.groupby("_c1")["_c2"].agg(":".join)
     pr_10 = pr_10.reset_index()
     pr_10["_c2"] = pr_10["_c2"].apply(lambda x: ":".join((sorted(x.split(":")))))
     pr_10.set_index("_c1" , inplace = True)
+    
 
-    return pr_10
+    return print(pr_10)
 
 
 def pregunta_11():
@@ -209,7 +216,8 @@ def pregunta_11():
     38   38      d,e
     39   39    a,d,f
     """
-    pr_11 = tbl1.groupby("_c0")["_c4"].agg(",".join)
+    pr_11 = tbl1.copy()
+    pr_11 = pr_11.groupby("_c0")["_c4"].agg(",".join)
     pr_11 = pr_11.reset_index()
 
     return print(pr_11)
@@ -230,13 +238,14 @@ def pregunta_12():
     38   38                    eee:0,fff:9,iii:2
     39   39                    ggg:3,hhh:8,jjj:5
     """
-    tbl12 = pd.DataFrame(tbl2,columns=["_c0",'_c5a','_c5b'])
-    tbl12["_c5"] = tbl12["_c5a"] + ":" + (tbl12["_c5b"].astype("str"))
-    tbl12 = tbl12.groupby("_c0")["_c5"].agg(",".join)
-    tbl12 =tbl12.rename_axis('_c0').reset_index()
-    tbl12["_c5"] = tbl12["_c5"].apply(lambda x: ",".join((sorted(x.split(",")))))
+    pr_12 = tbl2.copy()
+    pr_12 = pd.DataFrame(pr_12,columns=["_c0",'_c5a','_c5b'])
+    pr_12["_c5"] = pr_12["_c5a"] + ":" + (pr_12["_c5b"].astype("str"))
+    pr_12 = pr_12.groupby("_c0")["_c5"].agg(",".join)
+    pr_12 = pr_12.rename_axis('_c0').reset_index()
+    pr_12["_c5"] = pr_12["_c5"].apply(lambda x: ",".join((sorted(x.split(",")))))
 
-    return print(tbl12)
+    return print(pr_12)
 
 
 def pregunta_13():
